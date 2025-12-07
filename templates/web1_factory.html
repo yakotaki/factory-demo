@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ t.site_title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS (CDN) -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+        crossorigin="anonymous"
+    >
+
+    <style>
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+        .navbar-brand span {
+            font-weight: 700;
+        }
+        .hero {
+            padding: 4rem 0 3rem;
+            background: #0b1727;
+            color: #fff;
+        }
+        .hero h1 {
+            font-size: 2.3rem;
+            font-weight: 700;
+        }
+        .hero p.lead {
+            font-size: 1.05rem;
+            max-width: 620px;
+        }
+        .section-title {
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+        .badge-category {
+            font-size: 0.85rem;
+            padding: 0.5rem 0.8rem;
+            border-radius: 999px;
+        }
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        .faq-item h6 {
+            font-weight: 600;
+        }
+        .footer {
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <div class="container">
+        <a class="navbar-brand" href="{{ url_for('home', lang=lang) }}">
+            <span>{{ t.brand }}</span>
+        </a>
+        <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse" data-bs-target="#navMenu"
+                aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMenu">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link" href="#about">{{ t.nav_factory }}</a></li>
+                <li class="nav-item"><a class="nav-link" href="#products">{{ t.nav_products }}</a></li>
+                <li class="nav-item"><a class="nav-link" href="#quality">{{ t.nav_quality }}</a></li>
+                <li class="nav-item"><a class="nav-link" href="#shipping">{{ t.nav_shipping }}</a></li>
+                <li class="nav-item"><a class="nav-link" href="#faq">{{ t.nav_faq }}</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contact">{{ t.nav_contact }}</a></li>
+
+                <!-- Language dropdown: flag icons 🇬🇧 / 🇨🇳 -->
+                <li class="nav-item dropdown ms-lg-3">
+                    <a class="nav-link dropdown-toggle d-flex align-items-center gap-1"
+                       href="#" id="langDropdown"
+                       role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        {% if lang == 'en' %}
+                            <img src="https://flagcdn.com/w20/gb.png" alt="EN"
+                                 style="width:20px;height:auto;border-radius:2px;">
+                            <span>English</span>
+                        {% else %}
+                            <img src="https://flagcdn.com/w20/cn.png" alt="CN"
+                                 style="width:20px;height:auto;border-radius:2px;">
+                            <span>中文</span>
+                        {% endif %}
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="langDropdown">
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center gap-2 {% if lang == 'en' %}active{% endif %}"
+                               href="{{ url_for('home', lang='en') }}">
+                                <img src="https://flagcdn.com/w20/gb.png" alt="EN"
+                                     style="width:20px;height:auto;border-radius:2px;">
+                                <span>English</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center gap-2 {% if lang == 'zh' %}active{% endif %}"
+                               href="{{ url_for('home', lang='zh') }}">
+                                <img src="https://flagcdn.com/w20/cn.png" alt="CN"
+                                     style="width:20px;height:auto;border-radius:2px;">
+                                <span>中文</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="container">
+        <div class="row align-items-center gy-4">
+            <div class="col-lg-7">
+                <h1>{{ t.hero_title }}</h1>
+                <p class="lead mt-3">
+                    {{ t.hero_lead }}
+                </p>
+                <p class="mt-2">
+                    {{ t.hero_intro2 }}
+                </p>
+                <div class="d-flex flex-wrap align-items-center gap-3 mt-4">
+                    <a href="#contact" class="btn btn-primary btn-lg">
+                        {{ t.hero_cta_quote }}
+                    </a>
+                    <a href="#products" class="btn btn-outline-light btn-lg">
+                        {{ t.hero_cta_view }}
+                    </a>
+                    <div class="text-muted small">
+                        {{ t.hero_moq }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 text-lg-end">
+                <div class="bg-light text-dark rounded-3 p-3 p-md-4 shadow-sm">
+                    <h5 class="mb-3">{{ t.quick_facts_title }}</h5>
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <div class="stat-number">{{ t.quick_years_number }}</div>
+                            <div class="small text-muted">{{ t.quick_years_label }}</div>
+                        </div>
+                        <div class="col-6">
+                            <div class="stat-number">{{ t.quick_countries_number }}</div>
+                            <div class="small text-muted">{{ t.quick_countries_label }}</div>
+                        </div>
+                        <div class="col-6">
+                            <div class="stat-number">{{ t.quick_iso_number }}</div>
+                            <div class="small text-muted">{{ t.quick_iso_label }}</div>
+                        </div>
+                        <div class="col-6">
+                            <div class="stat-number">{{ t.quick_leadtime_number }}</div>
+                            <div class="small text-muted">{{ t.quick_leadtime_label }}</div>
+                        </div>
+                    </div>
+                    <div class="small text-muted mt-3">
+                        {{ t.quick_oem_line }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ABOUT FACTORY -->
+<section id="about" class="py-5">
+    <div class="container">
+        <h2 class="section-title">{{ t.section_about_title }}</h2>
+        <div class="row g-4">
+            <div class="col-lg-7">
+                <p>{{ t.about_p1 }}</p>
+                <p>{{ t.about_p2 }}</p>
+                <p>{{ t.about_p3 }}</p>
+            </div>
+            <div class="col-lg-5">
+                <div class="bg-light rounded-3 p-4 h-100">
+                    <h6 class="mb-3">{{ t.about_key_title }}</h6>
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2">• {{ t.about_key_1 }}</li>
+                        <li class="mb-2">• {{ t.about_key_2 }}</li>
+                        <li class="mb-2">• {{ t.about_key_3 }}</li>
+                        <li class="mb-2">• {{ t.about_key_4 }}</li>
+                        <li class="mb-2">• {{ t.about_key_5 }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products" class="py-5 bg-light">
+    <div class="container">
+        <h2 class="section-title">{{ t.section_products_title }}</h2>
+        <p class="mb-4">
+            {{ t.products_intro }}
+        </p>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-body">
+                        <span class="badge bg-primary-subtle text-primary border badge-category mb-3">
+                            {{ t.product1_badge }}
+                        </span>
+                        <h5 class="card-title">{{ t.product1_title }}</h5>
+                        <p class="card-text small">
+                            {{ t.product1_text }}
+                        </p>
+                        <ul class="small mb-0">
+                            <li>{{ t.product1_li1 }}</li>
+                            <li>{{ t.product1_li2 }}</li>
+                            <li>{{ t.product1_li3 }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-body">
+                        <span class="badge bg-success-subtle text-success border badge-category mb-3">
+                            {{ t.product2_badge }}
+                        </span>
+                        <h5 class="card-title">{{ t.product2_title }}</h5>
+                        <p class="card-text small">
+                            {{ t.product2_text }}
+                        </p>
+                        <ul class="small mb-0">
+                            <li>{{ t.product2_li1 }}</li>
+                            <li>{{ t.product2_li2 }}</li>
+                            <li>{{ t.product2_li3 }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-body">
+                        <span class="badge bg-warning-subtle text-warning border badge-category mb-3">
+                            {{ t.product3_badge }}
+                        </span>
+                        <h5 class="card-title">{{ t.product3_title }}</h5>
+                        <p class="card-text small">
+                            {{ t.product3_text }}
+                        </p>
+                        <ul class="small mb-0">
+                            <li>{{ t.product3_li1 }}</li>
+                            <li>{{ t.product3_li2 }}</li>
+                            <li>{{ t.product3_li3 }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4 d-flex flex-wrap align-items-center gap-3">
+            <a href="#contact" class="btn btn-primary">{{ t.products_cta_button }}</a>
+            <span class="small text-muted">
+                {{ t.products_cta_hint }}
+            </span>
+        </div>
+    </div>
+</section>
+
+<!-- QUALITY -->
+<section id="quality" class="py-5">
+    <div class="container">
+        <h2 class="section-title">{{ t.section_quality_title }}</h2>
+        <div class="row g-4">
+            <div class="col-lg-7">
+                <p>{{ t.quality_p1 }}</p>
+                <p>{{ t.quality_p2 }}</p>
+                <p>{{ t.quality_p3 }}</p>
+            </div>
+            <div class="col-lg-5">
+                <div class="bg-light rounded-3 p-4 h-100">
+                    <h6 class="mb-3">{{ t.quality_docs_title }}</h6>
+                    <ul class="list-unstyled mb-3 small">
+                        <li>• {{ t.quality_doc_li1 }}</li>
+                        <li>• {{ t.quality_doc_li2 }}</li>
+                        <li>• {{ t.quality_doc_li3 }}</li>
+                        <li>• {{ t.quality_doc_li4 }}</li>
+                    </ul>
+                    <div class="small text-muted">
+                        {{ t.quality_docs_note }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SHIPPING -->
+<section id="shipping" class="py-5 bg-light">
+    <div class="container">
+        <h2 class="section-title">{{ t.section_shipping_title }}</h2>
+        <div class="row g-4">
+            <div class="col-md-6">
+                <p>{{ t.shipping_p1 }}</p>
+                <ul>
+                    <li>{{ t.shipping_li1 }}</li>
+                    <li>{{ t.shipping_li2 }}</li>
+                    <li>{{ t.shipping_li3 }}</li>
+                </ul>
+                <p>{{ t.shipping_p2 }}</p>
+            </div>
+            <div class="col-md-6">
+                <div class="bg-white rounded-3 p-4 h-100 shadow-sm">
+                    <h6 class="mb-3">{{ t.shipping_payment_title }}</h6>
+                    <ul class="small mb-3">
+                        <li>{{ t.shipping_payment_li1 }}</li>
+                        <li>{{ t.shipping_payment_li2 }}</li>
+                        <li>{{ t.shipping_payment_li3 }}</li>
+                    </ul>
+                    <div class="small text-muted">
+                        {{ t.shipping_payment_note }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="py-5">
+    <div class="container">
+        <h2 class="section-title">{{ t.section_faq_title }}</h2>
+        <div class="row g-4">
+            <div class="col-md-6 faq-item">
+                <h6>{{ t.faq_q1 }}</h6>
+                <p class="small">
+                    {{ t.faq_a1 }}
+                </p>
+            </div>
+            <div class="col-md-6 faq-item">
+                <h6>{{ t.faq_q2 }}</h6>
+                <p class="small">
+                    {{ t.faq_a2 }}
+                </p>
+            </div>
+            <div class="col-md-6 faq-item">
+                <h6>{{ t.faq_q3 }}</h6>
+                <p class="small">
+                    {{ t.faq_a3 }}
+                </p>
+            </div>
+            <div class="col-md-6 faq-item">
+                <h6>{{ t.faq_q4 }}</h6>
+                <p class="small">
+                    {{ t.faq_a4 }}
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="py-5 bg-dark text-light">
+    <div class="container">
+        <h2 class="section-title">{{ t.section_contact_title }}</h2>
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <p>
+                    {{ t.contact_intro }}
+                </p>
+                <ul class="list-unstyled small">
+                    <li><strong>{{ t.contact_company_label }}</strong> Shanghai Bright Tools Co., Ltd.</li>
+                    <li><strong>{{ t.contact_address_label }}</strong> Shanghai, China</li>
+                    <li><strong>{{ t.contact_email_label }}</strong> sales@brighttools-demo.com</li>
+                    <li><strong>{{ t.contact_phone_label }}</strong> +86-000-0000-0000</li>
+                </ul>
+                <p class="small text-muted mb-0">
+                    {{ t.contact_demo_note }}
+                </p>
+            </div>
+            <div class="col-lg-6">
+                <form>
+                    <div class="mb-3">
+                        <label for="name" class="form-label small">{{ t.form_name_label }}</label>
+                        <input type="text" id="name" class="form-control" placeholder="{{ t.form_name_placeholder }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="company" class="form-label small">{{ t.form_company_label }}</label>
+                        <input type="text" id="company" class="form-control" placeholder="{{ t.form_company_placeholder }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label small">{{ t.form_email_label }}</label>
+                        <input type="email" id="email" class="form-control" placeholder="{{ t.form_email_placeholder }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="form-label small">{{ t.form_message_label }}</label>
+                        <textarea id="message" rows="4" class="form-control"
+                                  placeholder="{{ t.form_message_placeholder }}"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">
+                        {{ t.form_submit }}
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="footer mt-4 text-center">
+            &copy; Shanghai Bright Tools Co., Ltd. · {{ t.footer_demo }}
+        </div>
+    </div>
+</section>
+
+<!-- Bootstrap JS (for nav toggle & dropdown) -->
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+</body>
+</html>
