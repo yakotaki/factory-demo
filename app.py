@@ -378,11 +378,10 @@ TEXTS = {
 }
 
 
-def get_lang():
-    lang = request.args.get("lang", "en")
-    if lang not in TEXTS:
-        lang = "zh"
-    return lang
+def get_lang(default="en"):
+    lang = request.args.get("lang", default)
+    return "zh" if lang and lang.lower() in ("zh", "cn", "zh-cn") else "en"
+
 
 
 @app.route("/")
