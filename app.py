@@ -381,7 +381,7 @@ TEXTS = {
 def get_lang():
     lang = request.args.get("lang", "en")
     if lang not in TEXTS:
-        lang = "en"
+        lang = "zh"
     return lang
 
 
