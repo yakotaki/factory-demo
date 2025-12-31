@@ -202,7 +202,7 @@ TEXTS = {
 
     "zh": {
         "site_title": "上海光辉工具有限公司 | 中国手工具制造商",
-        "brand": "Bright Tools",
+        "brand": "亮匠工具",
 
         "nav_factory": "工厂介绍",
         "nav_products": "产品",
